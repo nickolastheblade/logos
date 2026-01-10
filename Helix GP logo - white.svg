@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="54 259 722 118">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="50 259 740 118">
   <g fill="#FFFFFF">
     <polyline points="
 		152.8,303 152.8,263.4 177.2,263.4 177.2,370.6 152.9,370.6 152.9,324.3 82.6,324.3 82.6,370.5 58,370.5 58,263.4 82.5,263.4 
@@ -36,5 +36,3 @@
 		l-8.2,0h-2.6v16.5h-8.9V319.3"/>
   </g>
 </svg>
-
-
