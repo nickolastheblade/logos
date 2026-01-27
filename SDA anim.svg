@@ -1,122 +1,102 @@
-<svg width="800" height="400" viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <!-- Определяем анимации для морфинга -->
-    <style>
-      .letter {
-        fill: white;
-        transform-origin: center;
+<svg viewBox="0 0 300 80" width="300" height="80"
+     xmlns="http://www.w3.org/2000/svg">
+
+  <style>
+    /* Общие настройки */
+    .stick {
+      fill: none;
+      stroke: #000;
+      stroke-width: 6;
+      stroke-linecap: round;
+      transform-box: fill-box;
+      transform-origin: center;
+    }
+
+    .label {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 18px;
+      opacity: 0;
+    }
+
+    /* Фаза 1 — «раскладываем» буквы в прямые палки */
+    #s_stick {
+      animation: sToLine 0.7s ease-in-out forwards;
+      animation-delay: 0.1s;
+    }
+    #d_stick {
+      animation: dToLine 0.7s ease-in-out forwards;
+      animation-delay: 0.2s;
+    }
+    #a_stick {
+      animation: aToLine 0.7s ease-in-out forwards;
+      animation-delay: 0.3s;
+    }
+
+    /* Фаза 2 — сводим три палки в одну, влево */
+    .stick {
+      animation-name: moveToLeft;
+      animation-duration: 0.6s;
+      animation-delay: 0.9s;
+      animation-fill-mode: forwards;
+      /* суммарная анимация: сначала «раскладывание» (индивидуальный keyframe),
+         затем общее движение влево */
+    }
+
+    /* Фаза 3 — появление расшифровки из палки */
+    #fullLabel {
+      animation: labelIn 0.6s ease-out forwards;
+      animation-delay: 1.4s;
+    }
+
+    /* --- KEYFRAMES --- */
+
+    /* Превращаем условные «ломаные буквы» в горизонтальные палки */
+    @keyframes sToLine {
+      from { d: path("M40 55 L30 35 L50 25"); }
+      to   { d: path("M40 40 L80 40"); }
+    }
+
+    @keyframes dToLine {
+      from { d: path("M120 55 L120 25 L140 35"); }
+      to   { d: path("M120 40 L160 40"); }
+    }
+
+    @keyframes aToLine {
+      from { d: path("M200 55 L190 25 L210 25 L200 40"); }
+      to   { d: path("M200 40 L240 40"); }
+    }
+
+    /* Общее движение линий влево и наложение друг на друга */
+    @keyframes moveToLeft {
+      from { transform: translateX(0px); }
+      to   { transform: translateX(-80px); }
+    }
+
+    /* Расшифровка «выезжает» из палки */
+    @keyframes labelIn {
+      from {
+        opacity: 0;
+        transform: translateX(-10px);
       }
-    </style>
-  </defs>
-  
-  <!-- Буква S (согнутая палка) -->
-  <path class="letter letter-s" d="M 80 100 Q 80 150, 120 150 T 120 250 T 80 300">
-    <!-- Выпрямление -->
-    <animate 
-      attributeName="d" 
-      from="M 80 100 Q 80 150, 120 150 T 120 250 T 80 300"
-      to="M 100 100 L 100 300"
-      begin="0s" 
-      dur="1s" 
-      fill="freeze" />
-    
-    <!-- Сдвиг влево -->
-    <animateTransform
-      attributeName="transform"
-      type="translate"
-      from="0 0"
-      to="300 0"
-      begin="1s"
-      dur="0.8s"
-      fill="freeze" />
-    
-    <!-- Исчезновение (слияние) -->
-    <animate
-      attributeName="opacity"
-      from="1"
-      to="0"
-      begin="1.6s"
-      dur="0.4s"
-      fill="freeze" />
-  </path>
+      to {
+        opacity: 1;
+        transform: translateX(0px);
+      }
+    }
+  </style>
 
-  <!-- Буква D (согнутая палка) -->
-  <path class="letter letter-d" d="M 320 100 Q 380 100, 380 200 Q 380 300, 320 300 L 320 100">
-    <!-- Выпрямление -->
-    <animate 
-      attributeName="d" 
-      from="M 320 100 Q 380 100, 380 200 Q 380 300, 320 300 L 320 100"
-      to="M 350 100 L 350 300"
-      begin="0s" 
-      dur="1s" 
-      fill="freeze" />
-    
-    <!-- Сдвиг влево -->
-    <animateTransform
-      attributeName="transform"
-      type="translate"
-      from="0 0"
-      to="50 0"
-      begin="1s"
-      dur="0.8s"
-      fill="freeze" />
-    
-    <!-- Остается как основная палка -->
-  </path>
+  <!-- Согнутые палки, образующие SDA (условная геометрия, подстрой под свой логотип) -->
+  <path id="s_stick" class="stick"
+        d="M40 55 L30 35 L50 25" />
 
-  <!-- Буква A (согнутая палка) -->
-  <path class="letter letter-a" d="M 580 300 L 620 100 L 660 300">
-    <!-- Выпрямление -->
-    <animate 
-      attributeName="d" 
-      from="M 580 300 L 620 100 L 660 300"
-      to="M 620 100 L 620 300"
-      begin="0s" 
-      dur="1s" 
-      fill="freeze" />
-    
-    <!-- Сдвиг влево -->
-    <animateTransform
-      attributeName="transform"
-      type="translate"
-      from="0 0"
-      to="-220 0"
-      begin="1s"
-      dur="0.8s"
-      fill="freeze" />
-    
-    <!-- Исчезновение (слияние) -->
-    <animate
-      attributeName="opacity"
-      from="1"
-      to="0"
-      begin="1.6s"
-      dur="0.4s"
-      fill="freeze" />
-  </path>
+  <path id="d_stick" class="stick"
+        d="M120 55 L120 25 L140 35" />
 
-  <!-- Расшифровка (появляется в конце) -->
-  <text x="450" y="200" fill="white" font-family="Inter, sans-serif" font-size="24" opacity="0">
-    <tspan x="450" dy="0">Strategic Digital</tspan>
-    <tspan x="450" dy="30">Agency</tspan>
-    
-    <!-- Появление текста -->
-    <animate
-      attributeName="opacity"
-      from="0"
-      to="1"
-      begin="2s"
-      dur="0.8s"
-      fill="freeze" />
-    
-    <!-- Сдвиг из палки -->
-    <animateTransform
-      attributeName="transform"
-      type="translate"
-      from="-50 0"
-      to="0 0"
-      begin="2s"
-      dur="0.8s"
-      fill="freeze" />
+  <path id="a_stick" class="stick"
+        d="M200 55 L190 25 L210 25 L200 40" />
+
+  <!-- Расшифровка, которая «складывается» в линию -->
+  <text id="fullLabel" class="label" x="80" y="45">
+    Studio of Digital Architecture
   </text>
 </svg>
